@@ -7,7 +7,7 @@ import { Route, Switch, BrowserRouter as Router } from 'react-router-dom'
 
 // Import Pages
 import Login from './views/Login'
-import Home from './views/Home'
+import Home from './views/Choose'
 import NotFound from './views/NotFound'
 
 const BASE_PAGE = ""
@@ -16,7 +16,7 @@ const routing = (
     <Router basename={BASE_PAGE} >
         <Switch>
             <Route exact path={`${process.env.PUBLIC_URL}/`} component={Login} />
-            <Route exact path={`${process.env.PUBLIC_URL}/home`} component={Home} />
+            <Route exact path={`${process.env.PUBLIC_URL}/choose`} component={Home} />
             <Route component={NotFound} />
         </Switch>
     </Router>
