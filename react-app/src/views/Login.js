@@ -8,10 +8,8 @@ class Login extends React.Component {
 
     render() {
         const titleStyle = {
-            position: "absolute",
             fontSize: "calc(42px + 2vmin)",
             color: "white",
-            top: "4vh",
             textShadow:
                 "3px 3px 0 #000," +
                 "-1px -1px 0 #000," +
@@ -32,7 +30,8 @@ class Login extends React.Component {
             padding: "2vh",
             backgroundColor: "#CCCCCC",
             borderRadius: "10px",
-            border: "solid black 3px"
+            border: "solid black 3px",
+            marginBottom: "10vh"
         }
 
         const shortTextStyle = {
