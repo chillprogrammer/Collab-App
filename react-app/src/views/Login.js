@@ -1,5 +1,5 @@
 import React from 'react'
-import { TextField, Button, Link } from '@material-ui/core';
+import { TextField, Card } from '@material-ui/core';
 
 class Login extends React.Component {
     constructor(props) {
@@ -7,10 +7,50 @@ class Login extends React.Component {
     }
 
     render() {
+        const titleStyle = {
+            position: "absolute",
+            fontSize: "calc(42px + 2vmin)",
+            color: "white",
+            top: "10%",
+            textShadow:
+                "3px 3px 0 #000," +
+                "-1px -1px 0 #000," +
+                "1px -1px 0 #000," +
+                "-1px 1px 0 #000," +
+                "1px 1px 0 #000"
+        }
+        const textfieldStyle = {
+            width: "50vw",
+            maxWidth: "400px"
+        }
+        const textfieldInputProps = {
+            style: {
+                color: "black",
+            }
+        }
+        const mainCardStyle = {
+            padding: "2vh",
+            backgroundColor: "#CCCCCC",
+            borderRadius: "10px",
+            border: "solid black 2px"
+        }
+
+        const shortTextStyle = {
+            fontSize: "calc(10px + 2vmin)"
+        }
+
         return (
             <div className="App">
                 <header className="App-header">
-                    <h1>Login</h1>
+                    <h1 style={titleStyle}>Collab-APP</h1>
+                    <Card style={mainCardStyle}>
+                        <div style={shortTextStyle}>
+                            <p>
+                                This app is made for students by students. <br /> <br />
+                            </p>
+                        </div>
+                        <TextField label={"Enter a nickname"} type="text" variant={"outlined"} autoFocus={true} style={textfieldStyle} inputProps={textfieldInputProps} placeholder="What would you like to be called?" />
+                    </Card>
                 </header>
             </div>
         )

@@ -1,5 +1,11 @@
 .App {
   text-align: center;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  overflow-y: auto;
 }
 
 .App-logo {
@@ -7,7 +13,7 @@
 }
 
 .App-header {
-  background-color: #0099FF;
+  background-color: #6515DD;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -15,14 +21,10 @@
   justify-content: center;
   align-content: center;
   font-size: calc(24px + 2vmin);
-  color: white;
-
-    /* will be "on top", if browser supports it */
-    background-image: linear-gradient(#40b6d5, #e8a05c);
+  color: black;
   
     /* these will reset other properties, like background-position, but it does know what you mean */
-    background: #0099FF;
-    background: linear-gradient(#40b6d5, #e8a05c);
+    background: #6515DD;
 }
 
 .App-link {
