@@ -7,14 +7,22 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #0099FF;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  align-content: center;
+  font-size: calc(24px + 2vmin);
   color: white;
+
+    /* will be "on top", if browser supports it */
+    background-image: linear-gradient(#40b6d5, #e8a05c);
+  
+    /* these will reset other properties, like background-position, but it does know what you mean */
+    background: #0099FF;
+    background: linear-gradient(#40b6d5, #e8a05c);
 }
 
 .App-link {
