@@ -1,5 +1,5 @@
 import React from 'react'
-import { TextField, Card } from '@material-ui/core';
+import { TextField, Card, Button } from '@material-ui/core';
 
 class Login extends React.Component {
     constructor(props) {
@@ -11,7 +11,7 @@ class Login extends React.Component {
             position: "absolute",
             fontSize: "calc(42px + 2vmin)",
             color: "white",
-            top: "10%",
+            top: "4vh",
             textShadow:
                 "3px 3px 0 #000," +
                 "-1px -1px 0 #000," +
@@ -32,11 +32,14 @@ class Login extends React.Component {
             padding: "2vh",
             backgroundColor: "#CCCCCC",
             borderRadius: "10px",
-            border: "solid black 2px"
+            border: "solid black 3px"
         }
 
         const shortTextStyle = {
             fontSize: "calc(10px + 2vmin)"
+        }
+        const loginButtonStyle = {
+            border: "solid black 1px"
         }
 
         return (
@@ -50,6 +53,10 @@ class Login extends React.Component {
                             </p>
                         </div>
                         <TextField label={"Enter a nickname"} type="text" variant={"outlined"} autoFocus={true} style={textfieldStyle} inputProps={textfieldInputProps} placeholder="What would you like to be called?" />
+                        <br/>
+                        <div style={{marginTop: "4vh"}} />
+                        <Button variant="contained" color={"primary"} style={loginButtonStyle}>Continue</Button>
+                        <div style={{marginBottom: "2vh"}} />
                     </Card>
                 </header>
             </div>
