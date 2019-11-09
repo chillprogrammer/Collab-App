@@ -4,6 +4,14 @@ import { TextField, Card, Button } from '@material-ui/core';
 class Login extends React.Component {
     constructor(props) {
         super(props)
+        this.state = { nickname: "" }
+    }
+
+    handleContinue() {
+        var nickname = this.state.nickname
+        if (nickname.length > 0) {
+            console.log("Nickname: " + nickname)
+        }
     }
 
     render() {
@@ -51,11 +59,26 @@ class Login extends React.Component {
                                 This app is made for students by students. <br /> <br />
                             </p>
                         </div>
-                        <TextField label={"Enter a nickname"} type="text" variant={"outlined"} autoFocus={true} style={textfieldStyle} inputProps={textfieldInputProps} placeholder="What would you like to be called?" />
-                        <br/>
-                        <div style={{marginTop: "4vh"}} />
-                        <Button variant="contained" color={"primary"} style={loginButtonStyle}>Continue</Button>
-                        <div style={{marginBottom: "2vh"}} />
+                        <TextField
+                            value={this.state.nickname}
+                            onChange={e => this.setState({ nickname: e.target.value })}
+                            label={"Enter a nickname"}
+                            type="text" variant={"outlined"}
+                            autoFocus={true}
+                            style={textfieldStyle}
+                            inputProps={textfieldInputProps}
+                            placeholder="What would you like to be called?"
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter') {
+                                    this.handleContinue()
+                                }
+                            }
+                            }
+                        />
+                        <br />
+                        <div style={{ marginTop: "4vh" }} />
+                        <Button onClick={this.handleContinue.bind(this)} variant="contained" color={"primary"} style={loginButtonStyle}>Continue</Button>
+                        <div style={{ marginBottom: "2vh" }} />
                     </Card>
                 </header>
             </div>
