@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios';
 import { TextField, Card, Button } from '@material-ui/core';
 
 class Login extends React.Component {
@@ -11,8 +12,23 @@ class Login extends React.Component {
         var nickname = this.state.nickname
         if (nickname.length > 0) {
             console.log("Nickname: " + nickname)
+
+            let postMsg = {
+                nickname: nickname
+            }
+
+            var url = ""
+            axios.post(url, postMsg)
+                .then(res => {
+                    console.log(res);
+                    console.log(res.data);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
         }
     }
+
 
     render() {
         const titleStyle = {

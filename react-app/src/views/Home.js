@@ -1,11 +1,7 @@
 import React from 'react'
-import { TextField, Button, Link } from '@material-ui/core';
+import { } from '@material-ui/core';
 
 class Home extends React.Component {
-    constructor(props) {
-        super(props)
-    }
-
     render() {
         return (
             <div className="App">
