@@ -6,7 +6,12 @@ import { CONFIG } from '../config'
 class Login extends React.Component {
     constructor(props) {
         super(props)
+
+        // Create state
         this.state = { nickname: "" }
+
+        // Bind functions
+        this.handleContinue = this.handleContinue.bind(this)
     }
 
     handleContinue() {
@@ -90,14 +95,14 @@ class Login extends React.Component {
                             placeholder="What would you like to be called?"
                             onKeyDown={(e) => {
                                 if (e.key === 'Enter') {
-                                    (this.handleContinue()).bind(this)
+                                    this.handleContinue()
                                 }
                             }
                             }
                         />
                         <br />
                         <div style={{ marginTop: "4vh" }} />
-                        <Button onClick={this.handleContinue.bind(this)} variant="contained" color={"primary"} style={loginButtonStyle}>Continue</Button>
+                        <Button onClick={this.handleContinue} variant="contained" color={"primary"} style={loginButtonStyle}>Continue</Button>
                         <div style={{ marginBottom: "2vh" }} />
                     </Card>
                 </header>
