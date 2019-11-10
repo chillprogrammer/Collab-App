@@ -1,6 +1,7 @@
 import React from 'react'
 import CanvasDraw from "react-canvas-draw";
-import { Tabs, Tab, Paper, Typography, Box } from '@material-ui/core'
+import { Tabs, Tab, Paper, Typography, Box, Card } from '@material-ui/core'
+import { SliderPicker } from 'react-color'
 
 class Room extends React.Component {
 
@@ -24,12 +25,17 @@ class Room extends React.Component {
         super(props)
 
         this.tabValue = 0
+        this.state = {
+            color: "red"
+        }
         this.canvasRef = React.createRef()
         this.saveData = ""
+
+        this.handleChangeComplete = this.handleChangeComplete.bind(this)
     }
 
     tabChanged = (event, newValue) => {
-        if(this.tabValue === 0) {
+        if (this.tabValue === 0) {
             this.canvasGetData()
         }
         this.tabValue = newValue
@@ -52,10 +58,18 @@ class Room extends React.Component {
         this.canvasRef.current.loadSaveData(this.saveData, true)
     }
 
+    handleChangeComplete = (c) => {
+        this.canvasGetData()
+        this.setState({ color: c.hex });
+        this.canvasLoadData()
+        console.log(this.state.color)
+    };
+
     render() {
         const canvasStyle = {
             position: "absolute",
-            top: "10vh"
+            top: "10vh",
+            left: "25vw"
         }
 
         const tabBarStyle = {
@@ -67,21 +81,15 @@ class Room extends React.Component {
             height: "100vh"
         }
 
-        /*const undoStyle = {
+        const toolboxStyle = {
+            backgroundColor: "#aabbcc",
             position: "absolute",
-            top: 0,
-            left: 0
+            left: 0,
+            top: "10vh",
+            width: "25vw",
+            height: "89vh",
+            border: "solid black 2px"
         }
-        const saveStyle = {
-            position: "absolute",
-            top: 0,
-            left: 100
-        }
-        const playStyle = {
-            position: "absolute",
-            top: 0,
-            left: 200
-        }*/
 
         function TabPanel(props) {
             const { children, value, index, ...other } = props;
@@ -119,12 +127,20 @@ class Room extends React.Component {
                     <CanvasDraw
                         ref={this.canvasRef}
                         style={canvasStyle}
-                        canvasWidth={"100vw"}
+                        canvasWidth={"75vw"}
                         canvasHeight={"90vh"}
                         saveData={this.saveData}
                         immediateLoading={true}
+                        brushColor={this.state.color}
                     //imgSrc={"https://image.shutterstock.com/image-vector/vector-retro-bold-font-alphabet-260nw-717976975.jpg"}
                     />
+                    <Card style={toolboxStyle}>
+
+                        <SliderPicker
+                            color={this.state.color}
+                            onChangeComplete={this.handleChangeComplete}
+                        />
+                    </Card>
                 </TabPanel>
             </div>
         )
