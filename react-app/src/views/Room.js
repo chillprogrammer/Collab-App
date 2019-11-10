@@ -26,7 +26,7 @@ class Room extends React.Component {
 
         this.tabValue = 0
         this.state = {
-            color: "red"
+            color: "#00FFFF"
         }
         this.canvasRef = React.createRef()
         this.saveData = ""
@@ -140,6 +140,7 @@ class Room extends React.Component {
                             color={this.state.color}
                             onChangeComplete={this.handleChangeComplete}
                         />
+                        <p style={{marginLeft: "9vw"}}>{this.state.color}</p>
                     </Card>
                 </TabPanel>
             </div>
