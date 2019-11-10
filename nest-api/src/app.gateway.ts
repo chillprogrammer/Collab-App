@@ -18,7 +18,6 @@ export class AppGateway
 
   @SubscribeMessage('drawToServer')
   handleCanvasDrawing(client: Socket, payload: any): void {
-    console.log('GOT DRAWING DATA');
     this.server.emit('drawToClient', payload);
   }
 

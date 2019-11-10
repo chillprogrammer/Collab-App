@@ -53,8 +53,6 @@ class Room extends React.Component {
 
   componentDidMount() {
     this.socket.on("drawToClient", (drawing) => {
-      console.log(drawing);
-
       this.saveData = drawing;
 
       this.setState({
@@ -84,9 +82,6 @@ class Room extends React.Component {
   canvasGetData() {
     const drawingData = this.canvasRef.current.getSaveData();
     this.saveData = drawingData;
-
-    console.log("I RAN");
-
     this.socket.emit("drawToServer", drawingData);
   }
 
@@ -98,7 +93,6 @@ class Room extends React.Component {
     this.canvasGetData();
     this.setState({ color: c.hex });
     this.canvasLoadData();
-    console.log(this.state.color);
   };
 
   brushRadiusChanged = (event, size) => {
@@ -110,7 +104,6 @@ class Room extends React.Component {
     }
     this.brushRadius = size;
     this.setState({ brushRadius: size });
-    console.log(this.brushRadius);
     this.canvasLoadData();
   };
 

@@ -4,8 +4,6 @@
  * @param param object key / property
  */
 export const DNE = (obj: any, param: string): boolean => {
-  console.log(obj[param]);
-
   if (!obj || obj[param] == null || obj[param] == undefined) {
     return true;
   }
