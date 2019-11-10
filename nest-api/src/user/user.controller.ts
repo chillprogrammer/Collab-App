@@ -12,6 +12,7 @@ import {
 import { Response } from 'express';
 import { User } from './user.model';
 import { UserService } from './user.service';
+import { DNE } from 'src/utils';
 
 @Controller('users')
 export class UserController {
@@ -31,6 +32,10 @@ export class UserController {
 
   @Post('/login')
   async login(@Body() user: User) {
+    if (DNE(user, 'username')) {
+      throw new HttpException('Missing username', HttpStatus.BAD_REQUEST);
+    }
+
     try {
       const foundUser = await this.userService.findOne(user.username);
 
@@ -51,7 +56,7 @@ export class UserController {
   async create(@Body() user: User) {
     const { username } = user;
 
-    if (!user || username == null || username == undefined) {
+    if (DNE(user, 'username')) {
       throw new HttpException(
         `Missing user object or username`,
         HttpStatus.BAD_REQUEST,
