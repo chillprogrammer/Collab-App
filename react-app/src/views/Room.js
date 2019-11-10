@@ -25,10 +25,13 @@ class Room extends React.Component {
 
         this.tabValue = 0
         this.canvasRef = React.createRef()
-        this.saveData = {}
+        this.saveData = ""
     }
 
     tabChanged = (event, newValue) => {
+        if(this.tabValue === 0) {
+            this.canvasGetData()
+        }
         this.tabValue = newValue
         this.setState({ tabValue: newValue })
     }
@@ -118,6 +121,8 @@ class Room extends React.Component {
                         style={canvasStyle}
                         canvasWidth={"100vw"}
                         canvasHeight={"90vh"}
+                        saveData={this.saveData}
+                        immediateLoading={true}
                     //imgSrc={"https://image.shutterstock.com/image-vector/vector-retro-bold-font-alphabet-260nw-717976975.jpg"}
                     />
                 </TabPanel>
