@@ -12,7 +12,7 @@ import {
 import { Response } from 'express';
 import { User } from './user.model';
 import { UserService } from './user.service';
-import { DNE } from 'src/utils';
+import { DNE } from '../utils';
 
 @Controller('api/users')
 export class UserController {
