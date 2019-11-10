@@ -29,7 +29,7 @@ class Login extends React.Component {
             axios.post(url, postMsg)
                 .then(res => {
                     console.log(res.data);
-                    //this.props.history.push("./choose");
+                    this.props.history.push("./choose");
                 })
                 .catch(function (error) {
                     console.log(error);

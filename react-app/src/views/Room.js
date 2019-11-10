@@ -1,6 +1,6 @@
 import React from 'react'
 import CanvasDraw from "react-canvas-draw";
-import { Tabs, Tab, Paper, Typography, Box, Card } from '@material-ui/core'
+import { Tabs, Tab, Paper, Typography, Box, Card, Slider, Button } from '@material-ui/core'
 import { SliderPicker } from 'react-color'
 
 class Room extends React.Component {
@@ -26,12 +26,16 @@ class Room extends React.Component {
 
         this.tabValue = 0
         this.state = {
-            color: "#00FFFF"
+            color: "#00FFFF",
+            brushRadius: 10
         }
         this.canvasRef = React.createRef()
         this.saveData = ""
 
         this.handleChangeComplete = this.handleChangeComplete.bind(this)
+        this.brushRadiusChanged = this.brushRadiusChanged.bind(this)
+        this.canvasUndo = this.canvasUndo.bind(this)
+        this.canvasClear = this.canvasClear.bind(this)
     }
 
     tabChanged = (event, newValue) => {
@@ -65,6 +69,20 @@ class Room extends React.Component {
         console.log(this.state.color)
     };
 
+    brushRadiusChanged = (event, size) => {
+        this.canvasGetData()
+        if (size < 0) {
+            size = 0
+        }
+        else if (size > 100) {
+            size = 100
+        }
+        this.brushRadius = size
+        this.setState({ brushRadius: size })
+        console.log(this.brushRadius)
+        this.canvasLoadData()
+    }
+
     render() {
         const canvasStyle = {
             position: "absolute",
@@ -89,6 +107,17 @@ class Room extends React.Component {
             width: "25vw",
             height: "89vh",
             border: "solid black 2px"
+        }
+
+        const undoButtonStyle = {
+            backgroundColor: "#999999",
+            left: "2vw"
+        }
+
+        const clearButtonStyle = {
+            position: "absolute",
+            backgroundColor: "#999999",
+            right: "2vw"
         }
 
         function TabPanel(props) {
@@ -132,15 +161,22 @@ class Room extends React.Component {
                         saveData={this.saveData}
                         immediateLoading={true}
                         brushColor={this.state.color}
-                    //imgSrc={"https://image.shutterstock.com/image-vector/vector-retro-bold-font-alphabet-260nw-717976975.jpg"}
+                        brushRadius={this.state.brushRadius}
                     />
                     <Card style={toolboxStyle}>
-
+                        <div style={{ marginTop: "4vh" }} />
+                        <p style={{ marginLeft: "9vw" }}>Brush Color</p>
                         <SliderPicker
                             color={this.state.color}
                             onChangeComplete={this.handleChangeComplete}
                         />
-                        <p style={{marginLeft: "9vw"}}>{this.state.color}</p>
+                        <p style={{ marginLeft: "9vw" }}>{this.state.color}</p>
+                        <div style={{ marginTop: "10vh" }} />
+                        <p style={{ marginLeft: "9vw" }}>Brush Size</p>
+                        <Slider value={this.state.brushRadius} onChange={this.brushRadiusChanged} aria-labelledby="input-slider" />
+                        <div style={{ marginTop: "10vh" }} />
+                        <Button onClick={this.canvasUndo} style={undoButtonStyle} variant={"outlined"}>Undo</Button>
+                        <Button onClick={this.canvasClear} style={clearButtonStyle} variant={"outlined"}>Clear</Button>
                     </Card>
                 </TabPanel>
             </div>

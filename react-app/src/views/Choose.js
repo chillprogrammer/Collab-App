@@ -33,7 +33,7 @@ class Choose extends React.Component {
         }
 
         const joinTextFieldStyle = {
-    
+
         }
 
         const goBackStyle = {
@@ -45,7 +45,7 @@ class Choose extends React.Component {
             border: "solid black 1px",
             backgroundColor: "green"
         }
-        
+
         const createTextStyle = {
             fontSize: "20px"
         }
@@ -54,14 +54,16 @@ class Choose extends React.Component {
             <div className="App">
                 <header className="App-header">
                     <Card style={cardStyle}>
-                        <p style={{marginTop: "-1vh"}}>Join or create a room:</p>
+                        <p style={{ marginTop: "-1vh" }}>Join or create a room:</p>
                         <Container style={joinContainerStyle}>
-                            <TextField style={joinTextFieldStyle} placeholder="Room ID" variant="outlined"/>
+                            <TextField style={joinTextFieldStyle} placeholder="Room ID" variant="outlined" />
                             <Button style={joinButtonStyle}>
                                 Join
                             </Button>
                         </Container>
-                        <Button style={createButtonStyle}>
+                        <Button style={createButtonStyle} onClick={(function () {
+                            this.props.history.push("./room");
+                        }).bind(this)}>
                             Create
                         </Button>
                         <br />
@@ -71,7 +73,7 @@ class Choose extends React.Component {
                     </Card>
                     <Button style={goBackStyle} onClick={this.goBack.bind(this)}>
                         Change Name
-                    </Button> <br/>
+                    </Button> <br />
                 </header>
             </div>
         )
