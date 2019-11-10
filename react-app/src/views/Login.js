@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios';
 import { TextField, Card, Button } from '@material-ui/core';
+import { CONFIG } from '../config'
 
 class Login extends React.Component {
     constructor(props) {
@@ -12,16 +13,19 @@ class Login extends React.Component {
         var nickname = this.state.nickname
         if (nickname.length > 0) {
             console.log("Nickname: " + nickname)
+            console.log(CONFIG.BASE_URL);
 
             let postMsg = {
                 nickname: nickname
             }
 
-            var url = ""
-            axios.post(url, postMsg)
+            var url = CONFIG.BASE_URL
+            
+            axios.get(url, postMsg)
                 .then(res => {
                     console.log(res);
                     console.log(res.data);
+                    this.props.history.push("./choose");
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -86,7 +90,7 @@ class Login extends React.Component {
                             placeholder="What would you like to be called?"
                             onKeyDown={(e) => {
                                 if (e.key === 'Enter') {
-                                    this.handleContinue()
+                                    (this.handleContinue()).bind(this)
                                 }
                             }
                             }
