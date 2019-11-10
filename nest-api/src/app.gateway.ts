@@ -17,12 +17,13 @@ export class AppGateway
   private logger: Logger = new Logger('AppGateway');
 
   @SubscribeMessage('drawToServer')
-  handleCanvasDrawing(client: Socket, payload: string): void {
-    this.server.emit('drawToServer', payload);
+  handleCanvasDrawing(client: Socket, payload: any): void {
+    console.log('GOT DRAWING DATA');
+    this.server.emit('drawToClient', payload);
   }
 
   @SubscribeMessage('msgToServer')
-  handleMessage(client: Socket, payload: string): void {
+  handleMessage(client: Socket, payload: any): void {
     this.server.emit('msgToClient', payload);
   }
 
