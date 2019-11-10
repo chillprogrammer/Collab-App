@@ -53,7 +53,7 @@ class Room extends React.Component {
 
   componentDidMount() {
     this.socket.on("drawToClient", (drawing) => {
-      console.log(drawing);
+      //console.log(drawing);
 
       this.saveData = drawing;
 
@@ -85,7 +85,7 @@ class Room extends React.Component {
     const drawingData = this.canvasRef.current.getSaveData();
     this.saveData = drawingData;
 
-    console.log("I RAN");
+    //console.log("I RAN");
 
     this.socket.emit("drawToServer", drawingData);
   }
@@ -95,23 +95,25 @@ class Room extends React.Component {
   }
 
   handleChangeComplete = (c) => {
-    this.canvasGetData();
+    //this.canvasGetData();
+    //this.canvasLoadData();
+    this.state.color = c.hex;
     this.setState({ color: c.hex });
-    this.canvasLoadData();
-    console.log(this.state.color);
+    //this.canvasLoadData();
+    //console.log(this.state.color);
   };
 
   brushRadiusChanged = (event, size) => {
-    this.canvasGetData();
+    //this.canvasGetData();
     if (size < 0) {
       size = 0;
     } else if (size > 100) {
       size = 100;
     }
-    this.brushRadius = size;
+    this.state.brushRadius = size;
     this.setState({ brushRadius: size });
-    console.log(this.brushRadius);
-    this.canvasLoadData();
+    //console.log(this.state.brushRadius);
+    //this.canvasLoadData();
   };
 
   render() {
