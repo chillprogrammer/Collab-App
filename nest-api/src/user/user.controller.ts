@@ -12,7 +12,7 @@ import {
 import { Response } from 'express';
 import { User } from './user.model';
 import { UserService } from './user.service';
-import { DNE } from 'src/utils';
+import { DNE } from '../utils';
 
 @Controller('api/users')
 export class UserController {
@@ -25,8 +25,6 @@ export class UserController {
 
   @Get(':id')
   findOne(@Param('id') id: string): Promise<User> {
-    console.log(id);
-
     return this.userService.findOneID(id);
   }
 
@@ -73,10 +71,6 @@ export class UserController {
         );
       }
     } catch (error) {
-      console.log({
-        error,
-      });
-
       if (error.status && error.status === 409) {
         throw new HttpException(
           `Duplicate username '${username}'`,
