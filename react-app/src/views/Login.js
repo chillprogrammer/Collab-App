@@ -17,20 +17,19 @@ class Login extends React.Component {
     handleContinue() {
         var nickname = this.state.nickname
         if (nickname.length > 0) {
-            console.log("Nickname: " + nickname)
-            console.log(CONFIG.BASE_URL);
+            //console.log("Nickname: " + nickname)
+            //console.log(CONFIG.BASE_URL);
 
             let postMsg = {
-                nickname: nickname
+                username: nickname
             }
 
-            var url = CONFIG.BASE_URL
+            var url = `${CONFIG.BASE_URL}/users/login`
             
-            axios.get(url, postMsg)
+            axios.post(url, postMsg)
                 .then(res => {
-                    console.log(res);
                     console.log(res.data);
-                    this.props.history.push("./choose");
+                    //this.props.history.push("./choose");
                 })
                 .catch(function (error) {
                     console.log(error);
