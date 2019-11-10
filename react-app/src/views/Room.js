@@ -1,6 +1,6 @@
 import React from 'react'
 import CanvasDraw from "react-canvas-draw";
-import { Button } from '@material-ui/core';
+import { Tabs, Tab, Paper, Typography, Box } from '@material-ui/core'
 
 class Room extends React.Component {
 
@@ -23,8 +23,14 @@ class Room extends React.Component {
     constructor(props) {
         super(props)
 
+        this.tabValue = 0
         this.canvasRef = React.createRef()
-        this.saveData = {};
+        this.saveData = {}
+    }
+
+    tabChanged = (event, newValue) => {
+        this.tabValue = newValue
+        this.setState({ tabValue: newValue })
     }
 
     canvasUndo() {
@@ -49,7 +55,16 @@ class Room extends React.Component {
             top: "10vh"
         }
 
-        const undoStyle = {
+        const tabBarStyle = {
+            position: "absolute",
+            top: 0,
+            left: 0,
+            backgroundColor: "#888888",
+            width: "100vw",
+            height: "100vh"
+        }
+
+        /*const undoStyle = {
             position: "absolute",
             top: 0,
             left: 0
@@ -63,14 +78,41 @@ class Room extends React.Component {
             position: "absolute",
             top: 0,
             left: 200
+        }*/
+
+        function TabPanel(props) {
+            const { children, value, index, ...other } = props;
+
+            return (
+                <Typography
+                    component="div"
+                    role="tabpanel"
+                    hidden={value !== index}
+                    id={`full-width-tabpanel-${index}`}
+                    aria-labelledby={`full-width-tab-${index}`}
+                    {...other}
+                >
+                    <Box>{children}</Box>
+                </Typography>
+            );
         }
 
         return (
-            <div className="App">
-                <header className="App-header">
-                    <Button style={undoStyle} onClick={this.canvasUndo.bind(this)} >UNDO</Button>
-                    <Button style={saveStyle} onClick={this.canvasGetData.bind(this)}>SAVE</Button>
-                    <Button style={playStyle} onClick={this.canvasLoadData.bind(this)}>PLAY</Button>
+            <div>
+                <Paper square style={tabBarStyle}>
+                    <Tabs
+                        value={this.tabValue}
+                        indicatorColor="primary"
+                        textColor="primary"
+                        aria-label="disabled tabs example"
+                        onChange={this.tabChanged.bind(this)}
+                    >
+                        <Tab label="Canvas" />
+                        <Tab label="Option 2" />
+                        <Tab label="Option 3" />
+                    </Tabs>
+                </Paper>
+                <TabPanel value={this.tabValue} index={0}>
                     <CanvasDraw
                         ref={this.canvasRef}
                         style={canvasStyle}
@@ -78,7 +120,7 @@ class Room extends React.Component {
                         canvasHeight={"90vh"}
                     //imgSrc={"https://image.shutterstock.com/image-vector/vector-retro-bold-font-alphabet-260nw-717976975.jpg"}
                     />
-                </header>
+                </TabPanel>
             </div>
         )
     }
