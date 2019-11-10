@@ -1,23 +1,100 @@
-import { InMemoryDBService } from '@nestjs-addons/in-memory-db';
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { UserEntity } from './user.model';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Res,
+  ExceptionFilter,
+  HttpStatus,
+  HttpException,
+} from '@nestjs/common';
+import { Response } from 'express';
+import { User } from './user.model';
+import { UserService } from './user.service';
 
 @Controller('users')
 export class UserController {
-  constructor(private readonly userService: InMemoryDBService<UserEntity>) {}
+  constructor(private readonly userService: UserService) {}
 
   @Get()
-  getAllUsers(): UserEntity[] {
-    return this.userService.getAll();
+  findAll(): Promise<User[]> {
+    return this.userService.findAll();
   }
 
-  @Get('/user/:id')
-  getUser(@Param('id') id: string): UserEntity {
-    return this.userService.get(+id);
+  @Get(':id')
+  findOne(@Param('id') id: string): Promise<User> {
+    console.log(id);
+
+    return this.userService.findOneID(id);
   }
 
-  @Post()
-  addUser(@Body() user: UserEntity) {
-    this.userService.create(user);
+  @Post('/login')
+  async login(@Body() user: User) {
+    try {
+      const foundUser = await this.userService.findOne(user.username);
+
+      if (!foundUser) {
+        return await this.userService.create(user);
+      }
+
+      return foundUser;
+    } catch (error) {
+      throw new HttpException(
+        `Failed to login in user ${JSON.stringify(user)}`,
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+  @Post('/create')
+  async create(@Body() user: User) {
+    const { username } = user;
+
+    if (!user || username == null || username == undefined) {
+      throw new HttpException(
+        `Missing user object or username`,
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+    try {
+      const duplicateUser = await this.userService.findOne(username);
+
+      if (duplicateUser) {
+        throw new HttpException(
+          `Duplicate username '${username}'`,
+          HttpStatus.CONFLICT,
+        );
+      }
+    } catch (error) {
+      console.log({
+        error,
+      });
+
+      if (error.status && error.status === 409) {
+        throw new HttpException(
+          `Duplicate username '${username}'`,
+          HttpStatus.CONFLICT,
+        );
+      } else {
+        throw new HttpException(
+          `Could not find user ???`,
+          HttpStatus.INTERNAL_SERVER_ERROR,
+        );
+      }
+    }
+
+    return this.userService.create(user);
+  }
+
+  @Post(':id')
+  delete(@Param('id') id: string): Promise<User> {
+    return this.userService.delete(id);
+  }
+
+  @Post(':id')
+  update(@Param('id') id: string, @Body() user: User): Promise<User> {
+    return this.userService.update(id, user);
   }
 }

@@ -1,5 +1,10 @@
-import { InMemoryDBEntity } from '@nestjs-addons/in-memory-db';
+import * as mongoose from 'mongoose';
 
-export interface UserEntity extends InMemoryDBEntity {
+export const UserSchema = new mongoose.Schema({
+  username: String,
+});
+
+export interface User extends mongoose.Document {
+  id?: string;
   username: string;
 }
